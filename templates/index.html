@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Status Predictor</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Status Predictor</h1>
+        <form method="POST" action="/predict">
+            {% for label, name in [
+                ("Are you pleased with the way you are?", "Pleased"),
+                ("Are you satisfied about everything in your life?", "Satisfied"),
+                ("Do you find beauty in some things?", "Beauty"),
+                ("I think I am attractive", "Attractive"),
+                ("I can fit in everything I want to", "Fit"),
+                ("I feel life is very rewarding", "Rewarding"),
+                ("I have happy memories of the past", "HappyMemories"),
+                ("I am fully mentally alert", "MentallyAlert")
+            ] %}
+            <div class="question">
+                <label>{{ label }}</label><br>
+                <label><input type="radio" name="{{ name }}" value="1" required> Yes</label>
+                <label><input type="radio" name="{{ name }}" value="0"> No</label>
+            </div>
+            {% endfor %}
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction_text %}
+        <div class="result">
+            <strong>Result:</strong> {{ prediction_text }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
